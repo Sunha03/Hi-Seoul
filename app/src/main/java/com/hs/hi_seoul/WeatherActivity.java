@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,29 +21,30 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
-public class WeaterActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity {
     TextView tv_date = null;
     TextView tv_day = null;
     TextView tv_temperature = null;
+    ImageView iv_weather = null;
 
     String api_date = null;
     String api_time = null;
 
     String sky;
-    double temperature;
+    int temperature;
     String precipitationForm;
-    Double precipitation;
+    double precipitation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weater);
+        setContentView(R.layout.activity_weather);
 
         tv_date = (TextView)findViewById(R.id.tv_date);
         tv_day = (TextView)findViewById(R.id.tv_day);
         tv_temperature = (TextView)findViewById(R.id.tv_temperature);
+        iv_weather = (ImageView)findViewById(R.id.iv_weather);
 
         //현재 날짜 구하기
         long now = System.currentTimeMillis();
@@ -51,7 +53,7 @@ public class WeaterActivity extends AppCompatActivity {
         String strDate = sdf.format(date);
         sdf = new SimpleDateFormat("yyyyMMdd");
         api_date = sdf.format(date);
-        sdf = new SimpleDateFormat("hh", Locale.KOREA);
+        sdf = new SimpleDateFormat("HH");
         api_time = sdf.format(date);
         Log.e("superdroid", api_date + " / " + api_time);
 
@@ -60,7 +62,7 @@ public class WeaterActivity extends AppCompatActivity {
 
         tv_date.setText(strDate);
         tv_day.setText("DAY 1");
-        tv_temperature.setText("27'C");
+        //tv_temperature.setText(temperature + "'C");
     }
 
     public void onClick(View v) {
@@ -159,12 +161,15 @@ public class WeaterActivity extends AppCompatActivity {
 
                     if(skyValue == 1) {
                         sky = "맑음";
+                        iv_weather.setImageResource(R.drawable.weather_sunny);
                     }
                     else if(skyValue == 2) {
                         sky = "구름조금";
+                        //iv_weather.setImageResource(R.drawable.weather_sunny);
                     }
                     else if(skyValue == 3) {
                         sky = "구름많음";
+                        //iv_weather.setImageResource(R.drawable.weather_sunny);
                     }
                     else if(skyValue == 4) {
                         sky = "흐림";
@@ -173,7 +178,9 @@ public class WeaterActivity extends AppCompatActivity {
 
                 //기온
                 else if(category.equals("T1H")) {
-                    temperature = Double.parseDouble(fcstValue);
+                    Double douTemperature = Double.parseDouble(fcstValue);
+                    temperature = douTemperature.intValue();
+                    tv_temperature.setText(temperature + "'C");
                 }
 
                 //강수형태
@@ -195,7 +202,7 @@ public class WeaterActivity extends AppCompatActivity {
 
                 //강수량
                 else if(category.equals("RN1")) {
-                    precipitation = Double.parseDouble(fcstValue.toString());
+                    precipitation = Double.parseDouble(fcstValue);
                 }
             }
 
