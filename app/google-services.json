@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "663106659340",
+    "firebase_url": "https://hi-seoul-42131.firebaseio.com",
+    "project_id": "hi-seoul-42131",
+    "storage_bucket": "hi-seoul-42131.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663106659340:android:4b96433112845b32",
+        "android_client_info": {
+          "package_name": "com.hs.hi_seoul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663106659340-fvh689vkgdl3f2648g68bn2projul4n0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hs.hi_seoul",
+            "certificate_hash": "6c19367fde44a1cd378371b5b81146fe78b1d8b3"
+          }
+        },
+        {
+          "client_id": "663106659340-0366oholhp8qs8snb2s4m26tvj9kbv7k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0auJk5QvKQAPXE-PkmDit9iJl1foY5PQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663106659340-0366oholhp8qs8snb2s4m26tvj9kbv7k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
