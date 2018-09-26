@@ -1,6 +1,7 @@
 package com.hs.hi_seoul;
 
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WeatherActivity extends AppCompatActivity {
+    String android_id;
+
     TextView tv_date = null;
     TextView tv_day = null;
     TextView tv_temperature = null;
@@ -63,6 +72,13 @@ public class WeatherActivity extends AppCompatActivity {
         tv_date.setText(strDate);
         tv_day.setText("DAY 1");
         //tv_temperature.setText(temperature + "'C");
+
+        //사용자 디바이스 ID 가져오기
+        android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.e("WeatherActivity", "User Device ID : " + android_id);
+
+        //사용자 unique id 저장/불러오기
+        SaveUser();
     }
 
     public void onClick(View v) {
@@ -99,7 +115,7 @@ public class WeatherActivity extends AppCompatActivity {
                 String type = "&_type=" + "json";
 
                 api_url = new URL(url + key + date + time + nx + ny + num_of_rows + type);
-                Log.e("superdroid", url + key + date + time + nx + ny + num_of_rows + type);
+                Log.e("WeatherActivity", "JSON URL : " + url + key + date + time + nx + ny + num_of_rows + type);
 
                 HttpURLConnection   con = (HttpURLConnection) api_url.openConnection();
                 con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
@@ -120,7 +136,7 @@ public class WeatherActivity extends AppCompatActivity {
                     eventListJSONParser(receiveMsg);
                 }
                 else {
-                    Log.e("superdroid", con.getResponseCode() + "ERROR!");
+                    Log.e("WeatherActivity", con.getResponseCode() + "ERROR!");
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -211,5 +227,36 @@ public class WeatherActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    //사용자 unique id 저장/불러오기
+    public void SaveUser() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("User");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int yes_no = 0;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    //ID가 있으면 완료한 스탬프 불러오기
+                    if(snapshot.getKey().toString().equals(android_id)) {
+                        //snapshot.getValue() : 완료한 스탬프
+                        Log.e("WeatherActivity", "Complete Stamp List : " + snapshot.getValue());
+                        yes_no += 1;
+                        break;
+                    }
+                }
+                //저장된 ID가 없으면 DB에 저장
+                if(yes_no == 0) {
+                    FirebaseDatabase.getInstance().getReference("User").child(android_id).setValue("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("WeatherActivity", "Error : " + databaseError.getMessage());
+            }
+        });
     }
 }
