@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".LineActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE 1"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/btn_line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE 2"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/btn_line3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE 3"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/btn_line4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE 4"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/btn_line5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE 5"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/btn_line6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE 6"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/btn_line7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE 7"
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/btn_line8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINE 8"
+        android:onClick="onClick" />
+
+</LinearLayout>
