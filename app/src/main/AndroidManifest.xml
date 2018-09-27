@@ -12,19 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".WeatherActivity" />
-        <activity android:name=".TourActivity" />
-        <activity android:name=".OptionActivity" />
-        <activity android:name=".StampActivity" />
-        <activity android:name=".GPSActivity">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LineActivity"></activity>
+        <activity android:name=".WeatherActivity" />
+        <activity android:name=".TourActivity" />
+        <activity android:name=".LineActivity" />
     </application>
 
 </manifest>
