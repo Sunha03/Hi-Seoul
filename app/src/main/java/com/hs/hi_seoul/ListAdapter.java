@@ -5,24 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class ListAdapter extends BaseAdapter {
+    int line_num;
     Context mContext;
-
-    ImageView iv_stamp;
-
     LayoutInflater inflater = null;
-    private ArrayList<ItemStamp> mStamps = null;
+    private ArrayList<TouristSpot> mSpots = null;
     private int nListCnt = 0;
 
-    public ListAdapter(Context context, ArrayList<ItemStamp> events)
+    ImageButton ib_spot;
+    TextView tv_spot_name;
+
+    public ListAdapter(Context context, int lineNum,  ArrayList<TouristSpot> events)
     {
-        mStamps = events;
-        nListCnt = mStamps.size();
+        mSpots = events;
+        nListCnt = mSpots.size();
+        line_num = lineNum;
         this.mContext = context;
     }
 
@@ -56,19 +58,47 @@ public class ListAdapter extends BaseAdapter {
 
         //Stamp 클릭 시
         View.OnClickListener clickListener = new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "=====" + mStamps.get(position).name + "=====", Toast.LENGTH_SHORT).show();
+                SpotDialog dialog = new SpotDialog(mContext, line_num, mSpots.get(position).spot_name);
+                dialog.show();
             }
         };
 
         //Stamp 설정
-        iv_stamp = (ImageView)convertView.findViewById(R.id.iv_stamp);
-        iv_stamp.setImageResource(R.drawable.weather_sunny);
-        iv_stamp.setOnClickListener(clickListener);
+        ib_spot = (ImageButton)convertView.findViewById(R.id.ib_spot);
+        tv_spot_name = (TextView)convertView.findViewById(R.id.tv_spot_name);
+
+        switch(line_num) {
+            case 1:
+                ib_spot.setBackgroundResource(R.drawable.line1);
+                break;
+            case 2:
+                ib_spot.setBackgroundResource(R.drawable.line2);
+                break;
+            case 3:
+                ib_spot.setBackgroundResource(R.drawable.line3);
+                break;
+            case 4:
+                ib_spot.setBackgroundResource(R.drawable.line4);
+                break;
+            case 5:
+                ib_spot.setBackgroundResource(R.drawable.line5);
+                break;
+            case 6:
+                ib_spot.setBackgroundResource(R.drawable.line6);
+                break;
+            case 7:
+                ib_spot.setBackgroundResource(R.drawable.line7);
+                break;
+            case 8:
+                ib_spot.setBackgroundResource(R.drawable.line8);
+                break;
+        }
+
+        tv_spot_name.setText(mSpots.get(position).spot_name);
+        ib_spot.setOnClickListener(clickListener);
 
         return convertView;
     }
-
 }

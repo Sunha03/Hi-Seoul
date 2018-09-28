@@ -1,5 +1,6 @@
 package com.hs.hi_seoul;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -82,17 +83,18 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
+        Intent intent = new Intent(this, LineActivity.class);
         if(v.getId() == R.id.ib_item1) {
-            Toast.makeText(getApplicationContext(), "Click Item1", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
         }
         else if(v.getId() == R.id.ib_item2) {
-            Toast.makeText(getApplicationContext(), "Click Item2", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
         }
         else if(v.getId() == R.id.ib_item3) {
-            Toast.makeText(getApplicationContext(), "Click Item3", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
         }
         else if(v.getId() == R.id.ib_item4) {
-            Toast.makeText(getApplicationContext(), "Click Item4", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
         }
     }
 

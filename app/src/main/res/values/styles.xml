@@ -11,6 +11,7 @@
         <item name="android:textViewStyle">@style/CustomTextView</item>
         <item name="android:editTextStyle">@style/CustomEditText</item>
         <item name="android:buttonStyle">@style/CustomButton</item>
+        <item name="android:dialogTheme">@style/CustomDialog</item>
     </style>
 
     <!-- Customize Font(SeoulNamsan) -->
@@ -23,6 +24,10 @@
     </style>
 
     <style name="CustomButton" parent="@android:style/Widget.DeviceDefault.Button">
+        <item name="android:fontFamily" tools:ignore="NewApi">@font/silkscreen</item>
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:fontFamily" tools:ignore="NewApi">@font/silkscreen</item>
     </style>
 
