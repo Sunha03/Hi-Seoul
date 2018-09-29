@@ -1,6 +1,7 @@
 package com.hs.hi_seoul;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -84,17 +85,21 @@ public class WeatherActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         Intent intent = new Intent(this, LineActivity.class);
-        if(v.getId() == R.id.ib_item1) {
-            startActivity(intent);
-        }
-        else if(v.getId() == R.id.ib_item2) {
-            startActivity(intent);
-        }
-        else if(v.getId() == R.id.ib_item3) {
-            startActivity(intent);
-        }
-        else if(v.getId() == R.id.ib_item4) {
-            startActivity(intent);
+
+        switch(v.getId()) {
+            case R.id.ib_item1:
+            case R.id.ib_item2:
+            case R.id.ib_item3:
+            case R.id.ib_item4:
+                startActivity(intent);
+                break;
+            case R.id.ib_item5:
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://www.seoul.go.kr/main/index.html"));
+                startActivity(intent);
+                break;
+            default:
+                    break;
         }
     }
 
@@ -176,21 +181,21 @@ public class WeatherActivity extends AppCompatActivity {
                 //하늘 상태
                 if(category.equals("SKY")) {
                     int skyValue = Integer.parseInt(fcstValue);
-
                     if(skyValue == 1) {
                         sky = "맑음";
                         iv_weather.setImageResource(R.drawable.weather_sunny);
                     }
                     else if(skyValue == 2) {
                         sky = "구름조금";
-                        //iv_weather.setImageResource(R.drawable.weather_sunny);
+                        iv_weather.setImageResource(R.drawable.weather_cloud);
                     }
                     else if(skyValue == 3) {
                         sky = "구름많음";
-                        //iv_weather.setImageResource(R.drawable.weather_sunny);
+                        iv_weather.setImageResource(R.drawable.weather_many);
                     }
                     else if(skyValue == 4) {
                         sky = "흐림";
+                        iv_weather.setImageResource(R.drawable.weather_many);
                     }
                 }
 
@@ -206,21 +211,29 @@ public class WeatherActivity extends AppCompatActivity {
                     int precipitationValue = Integer.parseInt(fcstValue);
                     if(precipitationValue == 0) {
                         precipitationForm = "비/눈 없음";
-                        }
+                        iv_weather.setImageResource(R.drawable.weather_sunny);
+                    }
                     else if(precipitationValue == 1) {
                         precipitationForm = "비";
+                        iv_weather.setImageResource(R.drawable.weather_rain);
+
                     }
                     else if(precipitationValue == 2) {
                         precipitationForm = "비/눈";
+                        iv_weather.setImageResource(R.drawable.weather_snow);
+
                     }
                     else if(precipitationValue == 3) {
                         precipitationForm = "눈";
+                        iv_weather.setImageResource(R.drawable.weather_snow);
+
                     }
                 }
 
                 //강수량
                 else if(category.equals("RN1")) {
                     precipitation = Double.parseDouble(fcstValue);
+                    iv_weather.setImageResource(R.drawable.weather_rain);
                 }
             }
 
