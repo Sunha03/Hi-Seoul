@@ -210,8 +210,8 @@
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/weather_sunglasses"
-                    android:scaleType="fitCenter"
-                    android:onClick="onClick"/>
+                    android:onClick="onClick"
+                    android:scaleType="fitCenter"/>
 
                 <TextView
                     android:id="@+id/tv_item4"

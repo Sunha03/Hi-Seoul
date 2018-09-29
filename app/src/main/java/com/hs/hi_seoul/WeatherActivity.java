@@ -78,11 +78,6 @@ public class WeatherActivity extends AppCompatActivity {
 
         tv_date.setText(strDate);
         tv_day.setText("DAY 1");
-        //tv_temperature.setText(temperature + "'C");
-
-        //사용자 디바이스 ID 가져오기
-        android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Log.e("WeatherActivity", "User Device ID : " + android_id);
 
     }
 
@@ -142,8 +137,6 @@ public class WeatherActivity extends AppCompatActivity {
                     con.disconnect();
 
                     receiveMsg = strBuffer.toString();
-
-                    eventListJSONParser(receiveMsg);
                 }
                 else {
                     Log.e("WeatherActivity", con.getResponseCode() + "ERROR!");
@@ -157,9 +150,10 @@ public class WeatherActivity extends AppCompatActivity {
             return receiveMsg;
         }
 
-        protected void onPostExecute(Void result) {
+        @Override
+        protected void onPostExecute(String result) {
             super.onPostExecute(String.valueOf(result));
-
+            eventListJSONParser(receiveMsg);
         }
     }
 
@@ -186,19 +180,19 @@ public class WeatherActivity extends AppCompatActivity {
                     int skyValue = Integer.parseInt(fcstValue);
                     if(skyValue == 1) {
                         sky = "맑음";
-       //                 iv_sunny.setVisibility(View.VISIBLE);
+                        iv_sunny.setVisibility(View.VISIBLE);
                     }
                     else if(skyValue == 2) {
                         sky = "구름조금";
-    //                    iv_cloud.setVisibility(View.VISIBLE);
+                        iv_cloud.setVisibility(View.VISIBLE);
                     }
                     else if(skyValue == 3) {
                         sky = "구름많음";
-   //                     iv_many.setVisibility(View.VISIBLE);
+                        iv_many.setVisibility(View.VISIBLE);
                     }
                     else if(skyValue == 4) {
                         sky = "흐림";
-  //                      iv_many.setVisibility(View.VISIBLE);
+                        iv_many.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -214,21 +208,21 @@ public class WeatherActivity extends AppCompatActivity {
                     int precipitationValue = Integer.parseInt(fcstValue);
                     if(precipitationValue == 0) {
                         precipitationForm = "비/눈 없음";
-  //                      iv_sunny.setVisibility(View.VISIBLE);
+                        iv_sunny.setVisibility(View.VISIBLE);
                     }
                     else if(precipitationValue == 1) {
                         precipitationForm = "비";
-   //                     iv_rain.setVisibility(View.VISIBLE);
+                        iv_rain.setVisibility(View.VISIBLE);
 
                     }
                     else if(precipitationValue == 2) {
                         precipitationForm = "비/눈";
-    //                    iv_snow.setVisibility(View.VISIBLE);
+                        iv_snow.setVisibility(View.VISIBLE);
 
                     }
                     else if(precipitationValue == 3) {
                         precipitationForm = "눈";
-  //                      iv_snow.setVisibility(View.VISIBLE);
+                        iv_snow.setVisibility(View.VISIBLE);
 
                     }
                 }
