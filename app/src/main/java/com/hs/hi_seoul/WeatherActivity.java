@@ -79,8 +79,6 @@ public class WeatherActivity extends AppCompatActivity {
         android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.e("WeatherActivity", "User Device ID : " + android_id);
 
-        //사용자 unique id 저장/불러오기
-        SaveUser();
     }
 
     public void onClick(View v) {
@@ -94,7 +92,7 @@ public class WeatherActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.ib_item5:
-                intent = new Intent(Intent.ACTION_VIEW);
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.seoul.go.kr/main/index.html"));
                 intent.setData(Uri.parse("http://www.seoul.go.kr/main/index.html"));
                 startActivity(intent);
                 break;
@@ -242,36 +240,5 @@ public class WeatherActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-    }
-
-    //사용자 unique id 저장/불러오기
-    public void SaveUser() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("User");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int yes_no = 0;
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //ID가 있으면 완료한 스탬프 불러오기
-                    if(snapshot.getKey().toString().equals(android_id)) {
-                        //snapshot.getValue() : 완료한 스탬프
-                        Log.e("WeatherActivity", "Complete Stamp List : " + snapshot.getValue());
-                        yes_no += 1;
-                        break;
-                    }
-                }
-                //저장된 ID가 없으면 DB에 저장
-                if(yes_no == 0) {
-                    FirebaseDatabase.getInstance().getReference("User").child(android_id).setValue("0");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("WeatherActivity", "Error : " + databaseError.getMessage());
-            }
-        });
     }
 }
