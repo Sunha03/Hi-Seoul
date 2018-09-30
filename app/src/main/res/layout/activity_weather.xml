@@ -210,8 +210,8 @@
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/weather_sunglasses"
-                    android:scaleType="fitCenter"
-                    android:onClick="onClick"/>
+                    android:onClick="onClick"
+                    android:scaleType="fitCenter"/>
 
                 <TextView
                     android:id="@+id/tv_item4"
@@ -227,13 +227,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:padding="5dp"
                 android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/ib_item5"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@android:color/transparent"/>
+                    android:background="@android:color/transparent"
+                    android:onClick="onClick"/>
 
             </LinearLayout>
 
