@@ -157,7 +157,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/weather_sunglasses"
+                    android:src="@drawable/cat"
                     android:onClick="onClick"
                     android:scaleType="fitCenter"/>
 
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:textSize="8dp"
-                    android:text="SUNGLASSES"/>
+                    android:text="CUTE CAT"/>
 
             </LinearLayout>
 
@@ -183,7 +183,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/weather_sunglasses"
+                    android:src="@drawable/raincoat"
                     android:onClick="onClick"
                     android:scaleType="fitCenter"/>
 
@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:textSize="8dp"
-                    android:text="SUNGLASSES"/>
+                    android:text="RAINCOAT"/>
 
             </LinearLayout>
 
@@ -209,7 +209,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/weather_sunglasses"
+                    android:src="@drawable/umbrella"
                     android:onClick="onClick"
                     android:scaleType="fitCenter"/>
 
@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:textSize="8dp"
-                    android:text="SUNGLASSES"/>
+                    android:text="UMBRELLA"/>
 
             </LinearLayout>
 
