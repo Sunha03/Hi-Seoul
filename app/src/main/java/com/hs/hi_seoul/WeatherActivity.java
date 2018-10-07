@@ -1,6 +1,10 @@
 package com.hs.hi_seoul;
 
+import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +12,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,10 +33,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WeatherActivity extends AppCompatActivity {
+    String android_id;
+
     TextView tv_date = null;
     TextView tv_day = null;
     TextView tv_temperature = null;
-    ImageView iv_weather = null;
+    ImageView iv_sunny, iv_cloud,iv_many, iv_rain, iv_snow;
 
     String api_date = null;
     String api_time = null;
@@ -44,7 +56,11 @@ public class WeatherActivity extends AppCompatActivity {
         tv_date = (TextView)findViewById(R.id.tv_date);
         tv_day = (TextView)findViewById(R.id.tv_day);
         tv_temperature = (TextView)findViewById(R.id.tv_temperature);
-        iv_weather = (ImageView)findViewById(R.id.iv_weather);
+        iv_sunny = (ImageView)findViewById(R.id.iv_sunny);
+        iv_cloud = (ImageView)findViewById(R.id.iv_cloud);
+        iv_many = (ImageView)findViewById(R.id.iv_many);
+        iv_rain = (ImageView)findViewById(R.id.iv_rain);
+        iv_snow = (ImageView)findViewById(R.id.iv_snow);
 
         //현재 날짜 구하기
         long now = System.currentTimeMillis();
@@ -62,21 +78,26 @@ public class WeatherActivity extends AppCompatActivity {
 
         tv_date.setText(strDate);
         tv_day.setText("DAY 1");
-        //tv_temperature.setText(temperature + "'C");
+
     }
 
     public void onClick(View v) {
-        if(v.getId() == R.id.ib_item1) {
-            Toast.makeText(getApplicationContext(), "Click Item1", Toast.LENGTH_SHORT).show();
-        }
-        else if(v.getId() == R.id.ib_item2) {
-            Toast.makeText(getApplicationContext(), "Click Item2", Toast.LENGTH_SHORT).show();
-        }
-        else if(v.getId() == R.id.ib_item3) {
-            Toast.makeText(getApplicationContext(), "Click Item3", Toast.LENGTH_SHORT).show();
-        }
-        else if(v.getId() == R.id.ib_item4) {
-            Toast.makeText(getApplicationContext(), "Click Item4", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, LineActivity.class);
+
+        switch(v.getId()) {
+            case R.id.ib_item1:
+            case R.id.ib_item2:
+            case R.id.ib_item3:
+            case R.id.ib_item4:
+                startActivity(intent);
+                break;
+            case R.id.ib_item5:
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.seoul.go.kr/main/index.html"));
+                intent.setData(Uri.parse("http://www.seoul.go.kr/main/index.html"));
+                startActivity(intent);
+                break;
+            default:
+                    break;
         }
     }
 
@@ -99,7 +120,7 @@ public class WeatherActivity extends AppCompatActivity {
                 String type = "&_type=" + "json";
 
                 api_url = new URL(url + key + date + time + nx + ny + num_of_rows + type);
-                Log.e("superdroid", url + key + date + time + nx + ny + num_of_rows + type);
+                Log.e("WeatherActivity", "JSON URL : " + url + key + date + time + nx + ny + num_of_rows + type);
 
                 HttpURLConnection   con = (HttpURLConnection) api_url.openConnection();
                 con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
@@ -116,11 +137,9 @@ public class WeatherActivity extends AppCompatActivity {
                     con.disconnect();
 
                     receiveMsg = strBuffer.toString();
-
-                    eventListJSONParser(receiveMsg);
                 }
                 else {
-                    Log.e("superdroid", con.getResponseCode() + "ERROR!");
+                    Log.e("WeatherActivity", con.getResponseCode() + "ERROR!");
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -131,9 +150,10 @@ public class WeatherActivity extends AppCompatActivity {
             return receiveMsg;
         }
 
-        protected void onPostExecute(Void result) {
+        @Override
+        protected void onPostExecute(String result) {
             super.onPostExecute(String.valueOf(result));
-
+            eventListJSONParser(receiveMsg);
         }
     }
 
@@ -158,21 +178,21 @@ public class WeatherActivity extends AppCompatActivity {
                 //하늘 상태
                 if(category.equals("SKY")) {
                     int skyValue = Integer.parseInt(fcstValue);
-
                     if(skyValue == 1) {
                         sky = "맑음";
-                        iv_weather.setImageResource(R.drawable.weather_sunny);
+                        iv_sunny.setVisibility(View.VISIBLE);
                     }
                     else if(skyValue == 2) {
                         sky = "구름조금";
-                        //iv_weather.setImageResource(R.drawable.weather_sunny);
+                        iv_cloud.setVisibility(View.VISIBLE);
                     }
                     else if(skyValue == 3) {
                         sky = "구름많음";
-                        //iv_weather.setImageResource(R.drawable.weather_sunny);
+                        iv_many.setVisibility(View.VISIBLE);
                     }
                     else if(skyValue == 4) {
                         sky = "흐림";
+                        iv_many.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -188,15 +208,22 @@ public class WeatherActivity extends AppCompatActivity {
                     int precipitationValue = Integer.parseInt(fcstValue);
                     if(precipitationValue == 0) {
                         precipitationForm = "비/눈 없음";
-                        }
+                        iv_sunny.setVisibility(View.VISIBLE);
+                    }
                     else if(precipitationValue == 1) {
                         precipitationForm = "비";
+                        iv_rain.setVisibility(View.VISIBLE);
+
                     }
                     else if(precipitationValue == 2) {
                         precipitationForm = "비/눈";
+                        iv_snow.setVisibility(View.VISIBLE);
+
                     }
                     else if(precipitationValue == 3) {
                         precipitationForm = "눈";
+                        iv_snow.setVisibility(View.VISIBLE);
+
                     }
                 }
 

@@ -40,19 +40,53 @@
         android:layout_above="@+id/rl_items">
 
         <ImageView
-            android:id="@+id/iv_weather"
+            android:id="@+id/iv_sunny"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_centerHorizontal="true"
             android:paddingTop="100dp"
+            android:visibility="invisible"
             android:src="@drawable/weather_sunny"/>
+        <ImageView
+            android:id="@+id/iv_rain"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="100dp"
+            android:visibility="invisible"
+            android:src="@drawable/weather_rain"/>
+        <ImageView
+            android:id="@+id/iv_cloud"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="100dp"
+            android:visibility="invisible"
+            android:src="@drawable/weather_cloud"/>
+        <ImageView
+            android:id="@+id/iv_snow"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="100dp"
+            android:visibility="invisible"
+            android:src="@drawable/weather_snow"/>
+
+        <ImageView
+            android:id="@+id/iv_many"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="100dp"
+            android:visibility="invisible"
+            android:src="@drawable/weather_many"/>
 
         <TextView
             android:id="@+id/tv_temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_below="@+id/iv_weather"
+            android:layout_below="@+id/iv_sunny"
             android:paddingTop="50dp"
             android:paddingBottom="40dp"
             android:textSize="40dp"
@@ -123,7 +157,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/weather_sunglasses"
+                    android:src="@drawable/cat"
                     android:onClick="onClick"
                     android:scaleType="fitCenter"/>
 
@@ -133,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:textSize="8dp"
-                    android:text="SUNGLASSES"/>
+                    android:text="CUTE CAT"/>
 
             </LinearLayout>
 
@@ -149,7 +183,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/weather_sunglasses"
+                    android:src="@drawable/raincoat"
                     android:onClick="onClick"
                     android:scaleType="fitCenter"/>
 
@@ -159,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:textSize="8dp"
-                    android:text="SUNGLASSES"/>
+                    android:text="RAINCOAT"/>
 
             </LinearLayout>
 
@@ -175,9 +209,9 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/weather_sunglasses"
-                    android:scaleType="fitCenter"
-                    android:onClick="onClick"/>
+                    android:src="@drawable/umbrella"
+                    android:onClick="onClick"
+                    android:scaleType="fitCenter"/>
 
                 <TextView
                     android:id="@+id/tv_item4"
@@ -185,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:textSize="8dp"
-                    android:text="SUNGLASSES"/>
+                    android:text="UMBRELLA"/>
 
             </LinearLayout>
 
@@ -193,13 +227,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:padding="5dp"
                 android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/ib_item5"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@android:color/transparent"/>
+                    android:background="@android:color/transparent"
+                    android:onClick="onClick"/>
 
             </LinearLayout>
 

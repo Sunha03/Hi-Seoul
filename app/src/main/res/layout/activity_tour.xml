@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tour_main"
     tools:context=".TourActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/white"
+        android:background="@color/blue"
+        android:layout_marginVertical="20dp"
+        android:textSize="50dp" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_line">
+    </ListView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="to be continued.."
+        android:layout_below="@+id/listView"/>
+
+</RelativeLayout>
